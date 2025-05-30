@@ -60,4 +60,26 @@ public class DigitalItemServiceTest {
                 .build();
         verify(digitalItemRepository, times(0)).createDigitalItem(expectedDigitalItem);
     }
+
+    @Test
+    void createDigitalItemStatusIsNotNull() {
+        DigitalItemService service = new DigitalItemServiceImpl(digitalItemRepository);
+        edu.uoc.epcsd.user.domain.DigitalItem digitalItem = edu.uoc.epcsd.user.domain.DigitalItem.builder()
+                .digitalSessionId(1L)
+                .lon(10L)
+                .lat(20L)
+                .description("description")
+                .link("link")
+                .build();
+        service.addDigitalItem(digitalItem);
+        edu.uoc.epcsd.user.domain.DigitalItem expectedDigitalItem = edu.uoc.epcsd.user.domain.DigitalItem.builder()
+                .digitalSessionId(1L)
+                .lon(10L)
+                .lat(20L)
+                .description("description")
+                .link("link")
+                .status(null)
+                .build();
+        verify(digitalItemRepository, times(0)).createDigitalItem(expectedDigitalItem);
+    }
 }
