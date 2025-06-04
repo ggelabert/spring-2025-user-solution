@@ -14,7 +14,7 @@ import static org.mockito.ArgumentMatchers.longThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class DigitalSessionServiceTest {
+public class DigitalSessionServiceUnitTest {
 
     @Mock
     private DigitalSessionRepository digitalSessionRepository;
