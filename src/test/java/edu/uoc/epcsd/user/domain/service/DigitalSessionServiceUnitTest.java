@@ -1,14 +1,17 @@
 package edu.uoc.epcsd.user.domain.service;
 
 import edu.uoc.epcsd.user.domain.DigitalSession;
+import edu.uoc.epcsd.user.domain.User;
 import edu.uoc.epcsd.user.domain.repository.DigitalSessionRepository;
 import edu.uoc.epcsd.user.domain.repository.UserRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.longThat;
 import static org.mockito.Mockito.when;
@@ -35,8 +38,10 @@ public class DigitalSessionServiceUnitTest {
                         .id(3L)
                         .build()
         );
-        when(digitalSessionRepository.findDigitalSessionByUser(longThat(i -> i == 1L))).thenReturn(List.of(DigitalSession.builder().id(1L).build()));
+        when(userRepository.findUserById(longThat(i -> i == 1L))).thenReturn(Optional.of(User.builder().build()));
+        when(digitalSessionRepository.findDigitalSessionByUser(longThat(i -> i == 1L))).thenReturn(digitalSessions);
         DigitalSessionService service = new DigitalSessionServiceImpl(digitalSessionRepository, userRepository);
         var sessions = service.findDigitalSessionByUser(1L);
+        Assertions.assertEquals(3, sessions.size());
     }
 }
